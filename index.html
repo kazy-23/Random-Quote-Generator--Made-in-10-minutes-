@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challange</title>
+    <style>
+        body{
+            text-align: center;
+            font-family: Verdana;
+        }
+        h1{
+            margin: 50px;
+        }
+        button{
+            margin: 50px;
+            height: 50px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random quote generator</h1>
+    <p id="output">Quote</p>
+    <p><i id="author">Author</i></p>
+    <button id="generate">Click to generate a new quote!</button>
+    <script>
+        const output = document.getElementById("output");
+        const generate = document.getElementById("generate");
+        const author = document.getElementById("author");
+
+        generate.onclick = ()=>{
+            fetch("https://type.fit/api/quotes")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    let quote = data[Math.floor((Math.random() * data.length) + 1)];
+                    output.innerHTML = '"' + quote.text + '"';
+                    author.innerHTML = "by " + quote.author;
+                });
+        }
+
+        generate.onclick();
+    </script>
+</body>
+</html>
